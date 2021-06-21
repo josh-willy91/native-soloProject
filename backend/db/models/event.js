@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'eventId'
     };
 
-    Event.belongsToMany(models.User, columnMapping)
+    Event.hasMany(models.User, columnMapping)
 
   };
   return Event;
