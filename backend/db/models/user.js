@@ -4,9 +4,18 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         len: [3, 30],
         isNotEmail(value) {
@@ -19,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         len: [3, 256]
       },
@@ -81,6 +91,22 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.associate = function(models) {
     // associations can be defined here
+
+    const eventColumnMapping = {
+      through: 'Rsvp',
+      otherKey: 'eventId',
+      foreignKey: 'userId',
+    };
+    const groupColumnMapping = {
+      through: 'Group',
+      otherKey: 'groupId',
+      foreignKey: 'userId',
+    };
+
+    User.belongsToMany(models.Event, eventColumnMapping)
+    User.hasMany(models.Group, groupColumnMapping)
+    User.hasMany(models.Event, {foreignKey: 'hostId'})
+
   };
   return User;
 };
