@@ -21,6 +21,7 @@ module.exports = {
 
       Example:
       */
+      queryInterface.sequelize.query('ALTER SEQUENCE "Groups_id_seq" RESTART WITH 1;');
       return queryInterface.bulkDelete('Groups', null, {});
   }
 };

@@ -10,7 +10,7 @@ module.exports = {
         state: 'FL',
         zipCode: '32250',
         lat: '30.295124',
-        lon: '-81.390159'
+        lon: '-81.390159',
       }
     ], {});
   },
@@ -22,6 +22,7 @@ module.exports = {
 
       Example:
       */
+      queryInterface.sequelize.query('ALTER SEQUENCE "Venues_id_seq" RESTART WITH 1;');
       return queryInterface.bulkDelete('Venues', null, {});
   }
 };
