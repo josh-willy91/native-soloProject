@@ -16,7 +16,7 @@
 //   );
 // }
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import { displayEvents } from '../../store/events';
@@ -24,6 +24,7 @@ import { displayEvents } from '../../store/events';
 const Events = () => {
     // declare variables from hooks
     const dispatch = useDispatch();
+    const events = useSelector((state) => state.events);
 
     // Use a 'react' hook and cause a side effect
     useEffect(() => {

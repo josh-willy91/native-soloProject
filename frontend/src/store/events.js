@@ -1,11 +1,11 @@
 
 // define action types as constants
-const GET_EVENTS = '/GET_EVENTS';
+const GET_EVENTS = 'events/GET_EVENTS';
 
 // define action creators
 const getEvents = (events) => ({
     type: GET_EVENTS,
-    events,
+    payload: events,
 });
 
 //// Define thunks
@@ -23,11 +23,11 @@ export const displayEvents = () => async(dispatch) => {
 const initialState = {};
 
 // define a reducer
-export default function landingReducer(state = initialState, action) {
+export default function eventsReducer(state = initialState, action) {
     switch(action.type) {
         case GET_EVENTS:
-            const allEvents = {};
-            return {...state, ...allEvents}
+            console.log(action)
+            return {...state, allEvents: [...action.payload]}
         default:
             return state
     };
