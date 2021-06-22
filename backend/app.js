@@ -39,7 +39,7 @@ if (!isProduction) {
   // backend/app.js
 const routes = require('./routes');
 
-app.use(routes); // Connect all the routes
+app.use(routes); // Connect all the routes - after middleware but before error handlers
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
