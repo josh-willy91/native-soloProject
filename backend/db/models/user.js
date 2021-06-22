@@ -98,13 +98,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
     };
     const groupColumnMapping = {
-      through: 'Group',
+      through: 'UserGroup',
       otherKey: 'groupId',
       foreignKey: 'userId',
     };
 
     User.belongsToMany(models.Event, eventColumnMapping)
-    User.hasMany(models.Group, groupColumnMapping)
+    User.belongsToMany(models.Group, groupColumnMapping)
     User.hasMany(models.Event, {foreignKey: 'hostId'})
 
   };

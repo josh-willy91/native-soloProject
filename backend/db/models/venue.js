@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const venue = sequelize.define('venue', {
+  const Venue = sequelize.define('Venue', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: null,
     },
   }, {});
-  venue.associate = function(models) {
+  Venue.associate = function(models) {
     // associations can be defined here
 
     Venue.hasMany(models.Event, {foreignKey: 'venueId'})
   };
-  return venue;
+  return Venue;
 };
