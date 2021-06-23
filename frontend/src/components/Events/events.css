@@ -6,12 +6,39 @@ rgb(247, 111, 108) light coral
 rgb(255, 223, 116) jasmine */
 
 .eventDiv {
+    background-color: rgb(220, 255, 253);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: repeat(6, 1fr);
+    grid-gap: 30px;
+    grid-template-areas:
+    "topDiv topDiv topDiv topDiv"
+    "leftDiv listDiv listDiv ."
+    "leftDiv listDiv listDiv ."
+    "leftDiv listDiv listDiv ."
+    ;
+}
+
+.topDiv {
+    grid-area: topDiv;
     display: flex;
     flex-direction: column;
-    background-color: rgb(220, 255, 253);
+    align-items: center;
+    margin: 0;
+}
+
+.topImage {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+h1,h3 {
+    margin: 3px;
 }
 
 .listDiv {
+    grid-area: listDiv;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,4 +48,31 @@ rgb(255, 223, 116) jasmine */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border: solid black 1px;
+    border-radius: 3px;
+    padding: 20px;
+    background-color: rgb(255, 223, 116);
+}
+
+.eventList li {
+    margin: 15px;
+}
+
+.leftDiv {
+    grid-area: leftDiv;
+    word-break: break-all;
+}
+
+.leftImage {
+    width: 68%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.leftDiv p {
+    width: 60%;
+    border: solid black 1px;
+    border-radius: 3px;
+    background-color: rgb(255, 223, 116);
+    padding: 15px;
 }

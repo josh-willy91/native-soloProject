@@ -18,16 +18,20 @@ const Events = () => {
     return (
         <>
             <div className='eventDiv'>
-                <div>
+                <div className="topDiv">
                     <h1>
                         {'Explore Florida'}
                     </h1>
                     <h3>{'Become a native Floridian'}</h3>
+                    <img src="/images/flKeys2.jpg" className="topImage"/>
                 </div>
-                <p>
-                    {`Most people aren't born in Florida, but that doesn't mean you
-                    can't live like the locals do and be a native Floridan at heart`}
-                </p>
+                <div className="leftDiv">
+                    <p className="leftP">
+                        {`Most people aren't born in Florida, but that doesn't mean you
+                        can't live like the locals do and be a native Floridan at heart`}
+                    </p>
+                    <img src="/images/palmTrees2.jpg" className="leftImage"/>
+                </div>
                 <div className='listDiv'>
                     <h1>{'Explore events around Florida'}</h1>
                     <ul className='eventList'>
