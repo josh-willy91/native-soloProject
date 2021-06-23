@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Events', {
@@ -24,7 +25,8 @@ module.exports = {
         references: {model: "Groups"}
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(40),
+        allowNull: false,
       },
       date: {
         type: Sequelize.DATE,
@@ -32,6 +34,10 @@ module.exports = {
       },
       capacity: {
         type: Sequelize.INTEGER
+      },
+      time: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

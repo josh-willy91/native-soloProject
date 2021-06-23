@@ -11,7 +11,11 @@ module.exports = {
       return queryInterface.bulkInsert('Groups', [
         {
         type: 'Beach Volleyball',
-      }], {});
+      },
+      {
+        type: 'Surfing',
+      },
+    ], {});
   },
 
   down: (queryInterface, Sequelize) => {

@@ -9,7 +9,8 @@ const eventDetailRouter = require('./eventDetails');
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/', landingRouter);
-router.use('/:id', userProfileRouter);
+// router.use('/userProfile', userProfileRouter);
 router.use('/event', eventDetailRouter);
+
 
 module.exports = router;

@@ -7,13 +7,13 @@ const router = express.Router();
 const { Event } = require('../../db/models')
 
 
-router.get('/:id', asyncHandler(async(req, res) => {
-    const id = req.params.id;
-    const events = await Event.findAll({where: {
-        hostId: id
-    }});
-    res.json(events);
-}));
+// router.get('/:id', asyncHandler(async(req, res) => {
+//     const id = req.params.id;
+//     const profile = await Event.findAll({where: {
+//         hostId: id
+//     }});
+//     res.json(profile);
+// }));
 
 
 module.exports = router;

@@ -11,7 +11,16 @@ module.exports = {
         zipCode: '32250',
         lat: '30.295124',
         lon: '-81.390159',
-      }
+      },
+        {
+          name: 'Surf the Poles',
+          address: '500 Wonderwood Dr',
+          city: 'Jacksonville',
+          state: 'FL',
+          zipCode: '32233',
+          lat: '30.367144',
+          lon: '-81.405453',
+        },
     ], {});
   },
 
