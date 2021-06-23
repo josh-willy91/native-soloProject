@@ -1,3 +1,4 @@
+import { csrfFetch } from './csrf';
 
 // define action types as constants
 const GET_EVENTS = 'events/GET_EVENTS';
@@ -24,7 +25,7 @@ const getOneEvent = (event) => ({
 //// Define thunks
 // Thunk to get all events
 export const displayEvents = () => async(dispatch) => {
-    const res = await fetch('/api/')
+    const res = await csrfFetch('/api/')
 
     if(res.ok) {
         const events = await res.json();
@@ -33,7 +34,7 @@ export const displayEvents = () => async(dispatch) => {
 };
 // Thunk to get all user events
 export const userEvents = (user) => async(dispatch) => {
-    const res = await fetch(`/api/${user.id}`)
+    const res = await csrfFetch(`/api/${user.id}`)
 
     if(res.ok) {
         const events = await res.json();
@@ -41,8 +42,8 @@ export const userEvents = (user) => async(dispatch) => {
     };
 };
 // Thunk to get a single event
-export const oneEvent = (event) => async(dispatch) => {
-    const res = await fetch(`/api/event/${event.id}`)
+export const oneEvent = (id) => async(dispatch) => {
+    const res = await csrfFetch(`/api/event/${id}`)
 
     if(res.ok) {
         const event = await res.json();
@@ -63,7 +64,7 @@ export default function eventsReducer(state = initialState, action) {
         case GET_USER_EVENTS:
             return {...state, onlyUserEvents: [...action.payload]}
         case GET_ONE_EVENT:
-            return {...state, oneEvent: [...action.payload]}
+            return {...state, oneEvent: [action.payload]}
         default:
             return state
     };

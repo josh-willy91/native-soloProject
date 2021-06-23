@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Events from "./components/Events";
+import EventDetails from "./components/EventDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,11 +20,14 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/signup">
+          <Route path="/signup" exact>
             <SignupFormPage />
           </Route>
-          <Route path="/">
+          <Route path="/" exact>
             <Events/>
+          </Route>
+          <Route path="/event/:id" exact>
+            <EventDetails/>
           </Route>
         </Switch>
       )}

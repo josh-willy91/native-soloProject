@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { displayEvents } from '../../store/events';
 import './events.css';
 
-const Events = () => {
+const EventDetails = () => {
     // declare variables from hooks
     const dispatch = useDispatch();
     const eventState = useSelector((state) => state.events);
@@ -36,8 +37,8 @@ const Events = () => {
                     <h1>{'Explore events around Florida'}</h1>
                     <ul className='eventList'>
                         {events && events.map((event) => (
-                            <li key={event.id} onClick={() => `/event/${event.id}`}>
-                                {event.name}
+                            <li key={event.id}>
+                                <NavLink to={`/event/${event.id}`}>{event.name}</NavLink>
                             </li>
                         ))}
                     </ul>
@@ -47,4 +48,4 @@ const Events = () => {
     )
 };
 
-export default Events;
+export default EventDetails;
