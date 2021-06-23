@@ -1,0 +1,24 @@
+
+
+/* rgb(220, 255, 253); light cyan
+rgb(82, 255, 238) turquoise blue
+rgb(247, 111, 108) light coral
+rgb(255, 223, 116) jasmine */
+
+.eventDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(220, 255, 253);
+}
+
+.listDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eventList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
