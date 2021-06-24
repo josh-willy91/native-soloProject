@@ -60,13 +60,14 @@ h1,h3 {
 
 .leftDiv {
     grid-area: leftDiv;
-    word-break: break-all;
+
 }
 
 .leftImage {
     width: 68%;
     height: 600px;
     object-fit: cover;
+    margin: 3px;
 }
 
 .leftDiv p {
@@ -74,5 +75,6 @@ h1,h3 {
     border: solid black 1px;
     border-radius: 3px;
     background-color: rgb(255, 223, 116);
-    padding: 15px;
+    padding: 10px;
+    margin: 3px;
 }
