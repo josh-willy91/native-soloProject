@@ -1,0 +1,64 @@
+
+
+.eventDetails {
+    background-color: rgb(220, 255, 253);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: repeat(6, 1fr);
+    grid-gap: 30px;
+    grid-template-areas:
+    "topDiv topDiv . ."
+    "leftDiv leftDiv rightPDiv rightPDiv"
+    "leftDiv leftDiv midPDiv midPDiv"
+    "bottomDiv bottomDiv bttmPDiv bttmPDiv"
+    ;
+}
+
+.topDiv {
+    grid-area: topDiv;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.topDiv img {
+    margin: 0;
+    padding: 0;
+}
+
+.leftDiv {
+    grid-area: leftDiv;
+}
+
+.topPDiv {
+    grid-area: rightPDiv;
+    border: black solid 1px;
+    border-radius: 3px;
+}
+
+.topPDiv p {
+    margin: 3px;
+    padding: 1px;
+}
+
+.midPDiv {
+    grid-area: midPDiv;
+    border: black solid 1px;
+    border-radius: 3px;
+}
+
+.midPDiv p {
+    margin: 3px;
+    padding: 1px;
+}
+
+.bttmPDiv {
+    grid-area: bttmPDiv;
+    border: black solid 1px;
+    border-radius: 3px;
+}
+
+.bttmPDiv p {
+    margin: 3px;
+    padding: 1px;
+}

@@ -24,14 +24,14 @@ const EventDetails = () => {
                         {'Explore Florida'}
                     </h1>
                     <h3>{'Become a native Floridian'}</h3>
-                    <img src="/images/flKeys2.jpg" className="topImage"/>
+                    <img src="/images/flKeys2.jpg" alt="" className="topImage"/>
                 </div>
                 <div className="leftDiv">
                     <p className="leftP">
                         {`Most people aren't born in Florida, but that doesn't mean you
                         can't live like the locals do and be a native Floridan at heart`}
                     </p>
-                    <img src="/images/palmTrees2.jpg" className="leftImage"/>
+                    <img src="/images/palmTrees2.jpg" alt="" className="leftImage"/>
                 </div>
                 <div className='listDiv'>
                     <h1>{'Explore events around Florida'}</h1>
