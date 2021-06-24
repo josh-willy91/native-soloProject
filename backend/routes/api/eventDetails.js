@@ -11,7 +11,7 @@ const { User } = require('../../db/models');
 router.get('/:id', asyncHandler(async(req, res) => {
     const {id} = req.params;
     const event = await Event.findByPk(id, {
-        // include:
+        include: User
     });
     res.json(event);
 }));
