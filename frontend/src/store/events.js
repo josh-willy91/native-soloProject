@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const GET_EVENTS = 'events/GET_EVENTS';
 const GET_USER_EVENTS = 'events/GET_USER_EVENTS';
 const GET_ONE_EVENT = 'events/GET_ONE_EVENT';
+const UPDATE_ATTENDEES = 'event/UPDATE_ATTENDEES';
 
 //// define action creators
 // all events
@@ -20,6 +21,11 @@ const onlyUserEvents = (events) => ({
 const getOneEvent = (event) => ({
     type: GET_ONE_EVENT,
     payload: event,
+});
+// update attendees for event
+const updateAttendees = (arrayOfData) => ({
+    type: UPDATE_ATTENDEES,
+    payload: arrayOfData,
 });
 
 //// Define thunks
@@ -50,6 +56,19 @@ export const oneEvent = (id) => async(dispatch) => {
         dispatch(getOneEvent(event))
     };
 };
+// Thunk to update attendees for an event
+export const updateEventAttendees = ([id, user]) => async(dispatch) => {
+    const res = await csrfFetch(`api/event/${id}`, {
+        method: 'put',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify([user])
+    })
+
+    if(res.ok) {
+        const updated = await res.json();
+        dispatch(updateAttendees(updated))
+    };
+};
 
 
 // define an initial state
@@ -65,6 +84,8 @@ export default function eventsReducer(state = initialState, action) {
             return {...state, onlyUserEvents: [...action.payload]}
         case GET_ONE_EVENT:
             return {...state, oneEvent: [action.payload]}
+        case UPDATE_ATTENDEES:
+            return {...state, updateEventAttendees: [action.payload]}
         default:
             return state
     };

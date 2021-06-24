@@ -28,16 +28,20 @@ module.exports = {
         type: Sequelize.STRING(40),
         allowNull: false,
       },
+      details: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
       date: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      capacity: {
-        type: Sequelize.INTEGER
-      },
       time: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      capacity: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

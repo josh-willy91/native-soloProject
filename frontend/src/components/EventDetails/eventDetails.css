@@ -62,3 +62,9 @@
     margin: 3px;
     padding: 1px;
 }
+
+.bottomDiv {
+    grid-area: bottomDiv;
+    border: black solid 1px;
+    border-radius: 3px;
+}

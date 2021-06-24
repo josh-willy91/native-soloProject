@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     venueId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
     name: DataTypes.STRING,
+    details: DataTypes.TEXT,
     date: DataTypes.STRING,
+    time: DataTypes.STRING,
     capacity: DataTypes.INTEGER
   }, {});
   Event.associate = function(models) {
@@ -15,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     Event.belongsTo(models.Group, {foreignKey: 'categoryId'})
 
     const columnMapping = {
-      through: 'Rsvp', // Join Table
+      as: 'attendees',
+      through: 'Rsvp',
       otherKey: 'userId',
       foreignKey: 'eventId'
     };
