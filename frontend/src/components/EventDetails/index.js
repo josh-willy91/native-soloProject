@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { oneEvent } from '../../store/events';
 import { updateEventAttendees } from '../../store/events';
 import { deleteEvent } from '../../store/events';
@@ -10,6 +10,8 @@ import './eventDetails.css';
 const EventDetails = () => {
     // declare variables from hooks
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const loggedInUser = useSelector((state) => {
         if(!state.session.user) return null;
         return state.session.user.id
@@ -43,6 +45,7 @@ const EventDetails = () => {
     });
 
 
+
     // formatISO(date, [options]) syntax for function
     // formats the data string returned from query
     // ('+020201-06-26T00:00:00.000Z')
@@ -55,12 +58,21 @@ const EventDetails = () => {
     // on line 19 when I make a call to dispatch the store
     let { id } = useParams();
 
+    const rsvpEvent = () => {
+        dispatch(updateEventAttendees([id, loggedInUser]));
+    };
+
+    // deleteEvent function for button click
+    const deleteHostEvent = () => {
+        dispatch(deleteEvent(id, loggedInUser));
+        history.push('/');
+    };
+
+
     // Use a 'react' hook and cause a side effect
     useEffect(() => {
         dispatch(oneEvent(id));
-        dispatch(updateEventAttendees([id, loggedInUser]));
-        dispatch(deleteEvent([id, loggedInUser]));
-    }, [loggedInUser, id, dispatch]);
+    }, [dispatch]);
 
 
     if(!event) {
@@ -87,11 +99,11 @@ const EventDetails = () => {
                         <li key={person.id}>{person.username}</li>
                     ))}</p>
                     <button disabled={event[0].capacity === event[0].attendees.length + 1 ? true: false}
-                        onClick={() => loggedInUser}>Join Event</button>
+                        onClick={() => rsvpEvent()}>Join Event</button>
                     <p hidden={event[0].capacity === event[0].attendees.length + 1 ? false: true}>
                         Sorry it looks like this event is all full</p>
                     <button disabled={buttonChooser} onClick={() => loggedInUser}>Leave Event</button>
-                    <button disabled={!hostButton} onClick={() => loggedInUser}>Cancel Event</button>
+                    <button disabled={!hostButton} onClick={() => deleteHostEvent()}>Cancel Event</button>
                 </div>
                 <div className="midPDiv">
                     <h3>It's going down...</h3>

@@ -29,9 +29,9 @@ const updateAttendees = (arrayOfData) => ({
     payload: arrayOfData,
 });
 // delete an event
-const deleteEventById = (arrayOfIds) => ({
+const deleteEventById = (eventId) => ({
     type: DELETE_EVENT,
-    payload: arrayOfIds,
+    payload: eventId,
 });
 
 //// Define thunks
@@ -76,16 +76,13 @@ export const updateEventAttendees = ([id, user]) => async(dispatch) => {
     };
 };
 // Thunk to delete an event
-export const deleteEvent = ([eventId, hostId]) => async(dispatch) => {
+export const deleteEvent = (eventId, hostId) => async(dispatch) => {
     const res = await csrfFetch(`/api/event/${eventId}`, {
         method: 'delete',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify([eventId, hostId])
     });
 
     if(res.ok) {
-        res.redirected('/')
-        dispatch(deleteEventById([eventId, hostId]))
+        dispatch(deleteEventById(eventId))
     };
 };
 
@@ -105,6 +102,10 @@ export default function eventsReducer(state = initialState, action) {
             return {...state, oneEvent: [action.payload]}
         case UPDATE_ATTENDEES:
             return {...state, updateEventAttendees: [action.payload]}
+        case DELETE_EVENT:
+            const oldState = {...state};
+            delete oldState.allEvents[action.payload];
+            return oldState;
         default:
             return state
     };
