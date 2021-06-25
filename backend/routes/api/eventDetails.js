@@ -7,6 +7,8 @@ const router = express.Router();
 const { Event } = require('../../db/models');
 const { User } = require('../../db/models');
 const { Venue } = require('../../db/models');
+const { Rsvp } = require('../../db/models');
+
 
 
 router.get('/:id', asyncHandler(async(req, res) => {
@@ -18,10 +20,9 @@ router.get('/:id', asyncHandler(async(req, res) => {
 }));
 
 router.put('/:id', async(req, res) => {
-    const id = req.body[0];
-    const user = req.body[1];
-    const addAttendee = await Event.update({attendees: user,
-        where: id});
+    const eventId = parseInt(req.body[0]);
+    const userId = req.body[1];
+    const addAttendee = await Rsvp.create({eventId, userId});
 
     res.json(addAttendee)
 });

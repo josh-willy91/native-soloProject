@@ -58,10 +58,10 @@ export const oneEvent = (id) => async(dispatch) => {
 };
 // Thunk to update attendees for an event
 export const updateEventAttendees = ([id, user]) => async(dispatch) => {
-    const res = await csrfFetch(`api/event/${id}`, {
+    const res = await csrfFetch(`/api/event/${id}`, {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify([user])
+        body: JSON.stringify([id, user])
     })
 
     if(res.ok) {

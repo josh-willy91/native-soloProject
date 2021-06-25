@@ -11,10 +11,35 @@ const EventDetails = () => {
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => {
         if(!state.session.user) return null;
-        return state.session.user.username
+        return state.session.user.id
     });
     const eventState = useSelector((state) => state.events);
     const event = eventState.oneEvent;
+
+    const buttonChooser = useSelector((state) => {
+        if(!event) {
+            return false;
+        } else {
+            let attendeesArray = state.events.oneEvent[0].attendees;
+            console.log(attendeesArray, 'lajdnlfnjal')
+            // attendeesArray.forEach((attendee) => {
+            //     console.log(attendees, 'lsjzfnljsnfslkj')
+            //     if(attendee.id === loggedInUser) {
+            //         // console.log(attendees.id, loggedInUser)
+            //         return true;
+            //     };
+            // });
+        };
+    });
+
+    const hostButton = useSelector((state) => {
+        if(!event) {
+            return null;
+        } else {
+
+        }
+    });
+
 
     // formatISO(date, [options]) syntax for function
     // formats the data string returned from query
@@ -34,7 +59,7 @@ const EventDetails = () => {
         dispatch(updateEventAttendees([id, loggedInUser]));
     }, [loggedInUser, id, dispatch]);
 
-    if(!eventState) {
+    if(!event) {
         return null
     };
 
@@ -42,39 +67,40 @@ const EventDetails = () => {
         return (
             <div className="eventDetails">
                 <div className="topDiv">
-                    <h1>{event && event[0].name}</h1>
-                    <h3>Hosted by user {event && event[0].User.username}</h3>
+                    <h1>{event[0].name}</h1>
+                    <h3>Hosted by user {event[0].User.username}</h3>
                     {/* {create NavLink to link to user profile} */}
-                    <h3>{event && isoFormat(event[0].date)}</h3>
+                    <h3>{isoFormat(event[0].date)}</h3>
                 </div>
                 <div className="leftDiv">
                     <img src="/images/defaultImage.jpg" alt="event"/>
                 </div>
                 <div className="topPDiv">
                     <h3>Who will be there</h3>
-                    <p>Capacity: {event && event[0].capacity}</p>
-                    <p>Spots left: {event && event[0].capacity}</p>
-                    <p>Attendees: {event && event[0].attendees.map((person) => (
-                        <li>{person}</li>
+                    <p>Capacity: {event[0].capacity}</p>
+                    <p>Spots left: {event[0].capacity}</p>
+                    <p>Attendees: {event[0].attendees.map((person) => (
+                        <li key={person.id}>{person.username}</li>
                     ))}</p>
                     <button onClick={() => loggedInUser}>Join Event</button>
+                    <button disabled={buttonChooser} onClick={() => loggedInUser}>Leave Event</button>
                 </div>
                 <div className="midPDiv">
                     <h3>It's going down...</h3>
-                    <p className="topP">Time: {event && event[0].time}</p>
-                    <p className="topP">Date: {event && isoFormat(event[0].date)}</p>
+                    <p className="topP">Time: {event[0].time}</p>
+                    <p className="topP">Date: {isoFormat(event[0].date)}</p>
                 </div>
                 <div className="bttmPDiv">
                     <h3>Location Details</h3>
-                    <p className="midP">Where: {event && event[0].Venue.name}</p>
-                    <p className="midP">Street: {event && event[0].Venue.address}</p>
-                    <p className="midP">City: {event && event[0].Venue.city}</p>
-                    <p className="midP">Zip Code: {event && event[0].Venue.zipCode}</p>
-                    <p className="midP">Lat: {event && event[0].Venue.lat}</p>
-                    <p className="midP">Lon: {event && event[0].Venue.lon}</p>
+                    <p className="midP">Where: {event[0].Venue.name}</p>
+                    <p className="midP">Street: {event[0].Venue.address}</p>
+                    <p className="midP">City: {event[0].Venue.city}</p>
+                    <p className="midP">Zip Code: {event[0].Venue.zipCode}</p>
+                    <p className="midP">Lat: {event[0].Venue.lat}</p>
+                    <p className="midP">Lon: {event[0].Venue.lon}</p>
                 </div>
                 <div className="bottomDiv">
-                    <p>{event && event[0].details}</p>
+                    <p>{event[0].details}</p>
                 </div>
             </div>
         )
@@ -82,19 +108,19 @@ const EventDetails = () => {
         return (
             <div className="eventDetails">
                 <div className="topDiv">
-                    <h1>{event && event[0].name}</h1>
-                    <h3>Hosted by user {event && event[0].User.username}</h3>
+                    <h1>{event[0].name}</h1>
+                    <h3>Hosted by user {event[0].User.username}</h3>
                     {/* {create NavLink to link to user profile} */}
-                    <h3>{event && isoFormat(event[0].date)}</h3>
+                    <h3>{isoFormat(event[0].date)}</h3>
                 </div>
                 <div className="leftDiv">
                     <img src="/images/defaultImage.jpg" alt="event"/>
                 </div>
                 <div className="topPDiv">
                     <h3>Who will be there</h3>
-                    <p>Capacity: {event && event[0].capacity}</p>
-                    <p>Spots left: {event && event[0].capacity}</p>
-                    <p>Attendees: {event && event[0].attendees.map((person) => (
+                    <p>Capacity: {event[0].capacity}</p>
+                    <p>Spots left: {event[0].capacity}</p>
+                    <p>Attendees: {event[0].attendees.map((person) => (
                         <li>{person}</li>
                     ))}</p>
                     <p>Sorry, only logged in members can join an event</p>
@@ -102,7 +128,7 @@ const EventDetails = () => {
                 <div className="midPDiv">
                     <h3>It's going down...</h3>
                     <p className="topP">Time: Not a member, just sign up</p>
-                    <p className="topP">Date: {event && isoFormat(event[0].date)}</p>
+                    <p className="topP">Date: {isoFormat(event[0].date)}</p>
                 </div>
                 <div className="bttmPDiv">
                     <h3>Location Details</h3>
