@@ -28,11 +28,17 @@ router.put('/:id', async(req, res) => {
 });
 
 router.delete('/:id',  async(req, res) => {
-    const eventId = parseInt(req.body[0]);
-    const hostId = req.body[1];
-    const deleteEvent = await Event.destroy(hostId)
+    // console.log(req, 'ljkandlfnldefkmn')
+    const {id} = req.params;
+    // const {hostid} = req.body;
+    const findEvent = await Event.findByPk(id);
+    const findRsvp = await Rsvp.findAll({where: {id}});
+    await findRsvp.forEach((rsvp) => {
+        rsvp.destroy();
+    });
+    await findEvent.destroy();
 
-    res.json(deleteEvent)
+    return res.json(id)
 });
 
 module.exports = router;
