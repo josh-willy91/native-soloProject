@@ -20,17 +20,27 @@ router.get('/:id', asyncHandler(async(req, res) => {
 }));
 
 router.put('/:id', async(req, res) => {
-    const eventId = parseInt(req.body[0]);
-    const userId = req.body[1];
-    const addAttendee = await Rsvp.create({eventId, userId});
+    const eventId = parseInt(req.body.id);
+    const userId = req.body.user;
+    const string = req.body.string
 
-    res.json(addAttendee)
+    if(string === 'add') {
+        const addAttendees = await Rsvp.create({eventId, userId});
+        res.json(addAttendees)
+    } else {
+        const rsvp = await Rsvp.findAll({where: eventId})
+        const removeAttendees = await rsvp.forEach((attendee) => {
+            if(attendee.userId === userId) {
+                attendee.destroy()
+            };
+        });
+        res.json(removeAttendees)
+    };
+
 });
 
 router.delete('/:id',  async(req, res) => {
-    // console.log(req, 'ljkandlfnldefkmn')
     const {id} = req.params;
-    // const {hostid} = req.body;
     const findEvent = await Event.findByPk(id);
     const findRsvp = await Rsvp.findAll({where: {id}});
     await findRsvp.forEach((rsvp) => {
