@@ -4,7 +4,8 @@ import { csrfFetch } from './csrf';
 const GET_EVENTS = 'events/GET_EVENTS';
 const GET_USER_EVENTS = 'events/GET_USER_EVENTS';
 const GET_ONE_EVENT = 'events/GET_ONE_EVENT';
-const UPDATE_ATTENDEES = 'event/UPDATE_ATTENDEES';
+const ADD_ATTENDEE = 'event/UPDATE_ATTENDEE';
+const REMOVE_ATTENDEE = 'event/REMOVE_ATTENDEE';
 const DELETE_EVENT = 'event/DELETE_EVENT';
 
 //// define action creators
@@ -24,9 +25,14 @@ const getOneEvent = (event) => ({
     payload: event,
 });
 // update attendees for event
-const updateAttendees = (arrayOfData) => ({
-    type: UPDATE_ATTENDEES,
-    payload: arrayOfData,
+const addAnAttendee = (dataObj) => ({
+    type: ADD_ATTENDEE,
+    payload: dataObj,
+});
+// remove attendee from event
+const removeAnAntendee = (dataObj) => ({
+    type: REMOVE_ATTENDEE,
+    payload: dataObj,
 });
 // delete an event
 const deleteEventById = (eventId) => ({
@@ -63,20 +69,36 @@ export const oneEvent = (id) => async(dispatch) => {
     };
 };
 // Thunk to update attendees for an event
-export const updateEventAttendees = ([id, user]) => async(dispatch) => {
+export const addAttendee = (id, user) => async(dispatch) => {
+    console.log('================', id, user)
     const res = await csrfFetch(`/api/event/${id}`, {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify([id, user])
-    })
+        body: JSON.stringify({string: 'add', id, user})
+    });
 
     if(res.ok) {
         const updated = await res.json();
-        dispatch(updateAttendees(updated))
+        console.log(updated, '=====================')
+        dispatch(addAnAttendee(updated))
+    };
+};
+// Thunk to remove a attendee from an event
+export const removeAttendee = (id, user) => async(dispatch) => {
+    const res = await csrfFetch(`/api/event/${id}`, {
+        method: 'put',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({string: 'remove', id, user})
+    });
+
+    if(res.ok) {
+        const updated = await res.json();
+        console.log(updated, '===================')
+        dispatch(removeAnAntendee(updated));
     };
 };
 // Thunk to delete an event
-export const deleteEvent = (eventId, hostId) => async(dispatch) => {
+export const deleteEvent = (eventId) => async(dispatch) => {
     const res = await csrfFetch(`/api/event/${eventId}`, {
         method: 'delete',
     });
@@ -100,8 +122,10 @@ export default function eventsReducer(state = initialState, action) {
             return {...state, onlyUserEvents: [...action.payload]}
         case GET_ONE_EVENT:
             return {...state, oneEvent: [action.payload]}
-        case UPDATE_ATTENDEES:
-            return {...state, updateEventAttendees: [action.payload]}
+        case ADD_ATTENDEE:
+            return {...state, addAttendees: [action.payload]}
+        case REMOVE_ATTENDEE:
+            return {...state, removeAnAntendee: [action.payload]}
         case DELETE_EVENT:
             const oldState = {...state};
             delete oldState.allEvents[action.payload];

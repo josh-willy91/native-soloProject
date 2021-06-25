@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { oneEvent } from '../../store/events';
-import { updateEventAttendees } from '../../store/events';
+import { addAttendee } from '../../store/events';
+import { removeAttendee } from '../../store/events';
 import { deleteEvent } from '../../store/events';
 import formatISO from 'date-fns/formatISO';
 import './eventDetails.css';
@@ -44,8 +45,6 @@ const EventDetails = () => {
         };
     });
 
-
-
     // formatISO(date, [options]) syntax for function
     // formats the data string returned from query
     // ('+020201-06-26T00:00:00.000Z')
@@ -58,11 +57,19 @@ const EventDetails = () => {
     // on line 19 when I make a call to dispatch the store
     let { id } = useParams();
 
-    const rsvpEvent = () => {
-        dispatch(updateEventAttendees([id, loggedInUser]));
+    // leave event function for button click
+    const leaveEvent = () => {
+        dispatch(removeAttendee(id, loggedInUser))
+        history.push(`/event/${id}`)
     };
 
-    // deleteEvent function for button click
+    // cancel event function for button click
+    const rsvpEvent = () => {
+        dispatch(addAttendee(id, loggedInUser));
+        history.push(`/event/${id}`)
+    };
+
+    // delete event function for button click
     const deleteHostEvent = () => {
         dispatch(deleteEvent(id, loggedInUser));
         history.push('/');
@@ -102,7 +109,7 @@ const EventDetails = () => {
                         onClick={() => rsvpEvent()}>Join Event</button>
                     <p hidden={event[0].capacity === event[0].attendees.length + 1 ? false: true}>
                         Sorry it looks like this event is all full</p>
-                    <button disabled={buttonChooser} onClick={() => loggedInUser}>Leave Event</button>
+                    <button disabled={buttonChooser} onClick={() => leaveEvent()}>Leave Event</button>
                     <button disabled={!hostButton} onClick={() => deleteHostEvent()}>Cancel Event</button>
                 </div>
                 <div className="midPDiv">
