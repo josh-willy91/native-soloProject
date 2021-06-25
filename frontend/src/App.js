@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Events from "./components/Events";
 import EventDetails from "./components/EventDetails";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/event/:id" exact>
             <EventDetails/>
+          </Route>
+          <Route path="/profile/:id" exact>
+            <UserProfile/>
           </Route>
         </Switch>
       )}

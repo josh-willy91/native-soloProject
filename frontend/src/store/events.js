@@ -5,6 +5,7 @@ const GET_EVENTS = 'events/GET_EVENTS';
 const GET_USER_EVENTS = 'events/GET_USER_EVENTS';
 const GET_ONE_EVENT = 'events/GET_ONE_EVENT';
 const UPDATE_ATTENDEES = 'event/UPDATE_ATTENDEES';
+const DELETE_EVENT = 'event/DELETE_EVENT';
 
 //// define action creators
 // all events
@@ -26,6 +27,11 @@ const getOneEvent = (event) => ({
 const updateAttendees = (arrayOfData) => ({
     type: UPDATE_ATTENDEES,
     payload: arrayOfData,
+});
+// delete an event
+const deleteEventById = (arrayOfIds) => ({
+    type: DELETE_EVENT,
+    payload: arrayOfIds,
 });
 
 //// Define thunks
@@ -67,6 +73,19 @@ export const updateEventAttendees = ([id, user]) => async(dispatch) => {
     if(res.ok) {
         const updated = await res.json();
         dispatch(updateAttendees(updated))
+    };
+};
+// Thunk to delete an event
+export const deleteEvent = ([eventId, hostId]) => async(dispatch) => {
+    const res = await csrfFetch(`/api/event/${eventId}`, {
+        method: 'delete',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify([eventId, hostId])
+    });
+
+    if(res.ok) {
+        res.redirected('/')
+        dispatch(deleteEventById([eventId, hostId]))
     };
 };
 

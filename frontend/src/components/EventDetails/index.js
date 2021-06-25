@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { oneEvent } from '../../store/events';
 import { updateEventAttendees } from '../../store/events';
+import { deleteEvent } from '../../store/events';
 import formatISO from 'date-fns/formatISO';
 import './eventDetails.css';
 
@@ -16,28 +17,29 @@ const EventDetails = () => {
     const eventState = useSelector((state) => state.events);
     const event = eventState.oneEvent;
 
+    // Checks to see if the logged in user has already joined the event (returns boolean)
     const buttonChooser = useSelector((state) => {
         if(!event) {
             return false;
         } else {
             let attendeesArray = state.events.oneEvent[0].attendees;
-            console.log(attendeesArray, 'lajdnlfnjal')
-            // attendeesArray.forEach((attendee) => {
-            //     console.log(attendees, 'lsjzfnljsnfslkj')
-            //     if(attendee.id === loggedInUser) {
-            //         // console.log(attendees.id, loggedInUser)
-            //         return true;
-            //     };
-            // });
+            attendeesArray.forEach((attendee) => {
+                if(attendee.id === loggedInUser) {
+                    return true;
+                };
+            });
         };
     });
 
+    // checks to see if logged in user is the host of the event
     const hostButton = useSelector((state) => {
-        if(!event) {
-            return null;
+        if(!event || !state.session.user) {
+            return false;
         } else {
-
-        }
+            const hostId = state.events.oneEvent[0].hostId;
+            const userId = state.session.user.id;
+            if(hostId === userId) return true;
+        };
     });
 
 
@@ -57,7 +59,9 @@ const EventDetails = () => {
     useEffect(() => {
         dispatch(oneEvent(id));
         dispatch(updateEventAttendees([id, loggedInUser]));
+        dispatch(deleteEvent([id, loggedInUser]));
     }, [loggedInUser, id, dispatch]);
+
 
     if(!event) {
         return null
@@ -78,12 +82,16 @@ const EventDetails = () => {
                 <div className="topPDiv">
                     <h3>Who will be there</h3>
                     <p>Capacity: {event[0].capacity}</p>
-                    <p>Spots left: {event[0].capacity}</p>
+                    <p>Spots left: {event[0].capacity - 1 - event[0].attendees.length}</p>
                     <p>Attendees: {event[0].attendees.map((person) => (
                         <li key={person.id}>{person.username}</li>
                     ))}</p>
-                    <button onClick={() => loggedInUser}>Join Event</button>
+                    <button disabled={event[0].capacity === event[0].attendees.length + 1 ? true: false}
+                        onClick={() => loggedInUser}>Join Event</button>
+                    <p hidden={event[0].capacity === event[0].attendees.length + 1 ? false: true}>
+                        Sorry it looks like this event is all full</p>
                     <button disabled={buttonChooser} onClick={() => loggedInUser}>Leave Event</button>
+                    <button disabled={!hostButton} onClick={() => loggedInUser}>Cancel Event</button>
                 </div>
                 <div className="midPDiv">
                     <h3>It's going down...</h3>
@@ -120,9 +128,6 @@ const EventDetails = () => {
                     <h3>Who will be there</h3>
                     <p>Capacity: {event[0].capacity}</p>
                     <p>Spots left: {event[0].capacity}</p>
-                    <p>Attendees: {event[0].attendees.map((person) => (
-                        <li>{person}</li>
-                    ))}</p>
                     <p>Sorry, only logged in members can join an event</p>
                 </div>
                 <div className="midPDiv">

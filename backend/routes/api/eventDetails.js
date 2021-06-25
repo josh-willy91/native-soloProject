@@ -27,4 +27,12 @@ router.put('/:id', async(req, res) => {
     res.json(addAttendee)
 });
 
+router.delete('/:id',  async(req, res) => {
+    const eventId = parseInt(req.body[0]);
+    const hostId = req.body[1];
+    const deleteEvent = await Event.destroy(hostId)
+
+    res.json(deleteEvent)
+});
+
 module.exports = router;
