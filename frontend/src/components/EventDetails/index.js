@@ -21,18 +21,16 @@ const EventDetails = () => {
     const event = eventState.oneEvent;
 
     // Checks to see if the logged in user has already joined the event (returns boolean)
-    const buttonChooser = useSelector((state) => {
-        if(!event) {
-            return false;
-        } else {
-            let attendeesArray = state.events.oneEvent[0].attendees;
-            attendeesArray.forEach((attendee) => {
-                if(attendee.id === loggedInUser) {
-                    return true;
-                };
-            });
+    const disableButton = () => {
+        let attendeesArray = event[0].attendees;
+        for(let i = 0; i < attendeesArray.length; i++) {
+            let attendee = attendeesArray[i];
+            if(attendee.id === loggedInUser) {
+                return true;
+            }
         };
-    });
+        return false;
+    };
 
     // checks to see if logged in user is the host of the event
     const hostButton = useSelector((state) => {
@@ -87,6 +85,7 @@ const EventDetails = () => {
     };
 
     if(loggedInUser) {
+
         return (
             <div className="eventDetails">
                 <div className="topDiv">
@@ -105,11 +104,12 @@ const EventDetails = () => {
                     <p>Attendees: {event[0].attendees.map((person) => (
                         <li key={person.id}>{person.username}</li>
                     ))}</p>
-                    <button disabled={event[0].capacity === event[0].attendees.length + 1 ? true: false}
+                    <button hidden={event[0].capacity === event[0].attendees.length + 1 ? true: false}
+                        disabled={disableButton()}
                         onClick={() => rsvpEvent()}>Join Event</button>
                     <p hidden={event[0].capacity === event[0].attendees.length + 1 ? false: true}>
                         Sorry it looks like this event is all full</p>
-                    <button disabled={buttonChooser} onClick={() => leaveEvent()}>Leave Event</button>
+                    <button disabled={false} onClick={() => leaveEvent()}>Leave Event</button>
                     <button disabled={!hostButton} onClick={() => deleteHostEvent()}>Cancel Event</button>
                 </div>
                 <div className="midPDiv">

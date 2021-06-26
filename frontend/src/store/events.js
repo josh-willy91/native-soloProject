@@ -70,7 +70,6 @@ export const oneEvent = (id) => async(dispatch) => {
 };
 // Thunk to update attendees for an event
 export const addAttendee = (id, user) => async(dispatch) => {
-    console.log('================', id, user)
     const res = await csrfFetch(`/api/event/${id}`, {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
@@ -79,7 +78,6 @@ export const addAttendee = (id, user) => async(dispatch) => {
 
     if(res.ok) {
         const updated = await res.json();
-        console.log(updated, '=====================')
         dispatch(addAnAttendee(updated))
     };
 };
@@ -93,7 +91,6 @@ export const removeAttendee = (id, user) => async(dispatch) => {
 
     if(res.ok) {
         const updated = await res.json();
-        console.log(updated, '===================')
         dispatch(removeAnAntendee(updated));
     };
 };
