@@ -13,10 +13,9 @@ const { Rsvp } = require('../../db/models')
 router.get('/:id', asyncHandler(async(req, res) => {
     const { id } = req.params;
     const profile = await User.findByPk(id, {
-        include: [Event, Group]
+        include: [Event, Group, 'attending']
     })
 
-    console.log(profile, '=======================')
     res.json(profile);
 }));
 

@@ -93,6 +93,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
 
     const eventColumnMapping = {
+      as: 'attending',
       through: 'Rsvp',
       otherKey: 'eventId',
       foreignKey: 'userId',
