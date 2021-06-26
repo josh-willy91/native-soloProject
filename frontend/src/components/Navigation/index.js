@@ -9,6 +9,11 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
+  const loggedInUser = useSelector((state) => {
+    if(!state.session.user) return null;
+    return state.session.user.id
+  });
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -28,6 +33,9 @@ function Navigation({ isLoaded }){
       <li className="navList">
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
+      </li>
+      <li hidden={loggedInUser ? false: true}>
+        <NavLink to={`/userProfile/${loggedInUser}`}>Profile</NavLink>
       </li>
     </ul>
   );

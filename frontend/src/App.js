@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import Events from "./components/Events";
 import EventDetails from "./components/EventDetails";
 import UserProfile from "./components/UserProfile";
+import CreateEvent from "./components/CreateEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,8 +31,11 @@ function App() {
           <Route path="/event/:id" exact>
             <EventDetails/>
           </Route>
-          <Route path="/profile/:id" exact>
+          <Route path="/userProfile/:id" exact>
             <UserProfile/>
+          </Route>
+          <Route>
+            <CreateEvent path="/eventForm/create" exact></CreateEvent>
           </Route>
         </Switch>
       )}

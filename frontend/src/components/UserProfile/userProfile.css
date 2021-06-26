@@ -1,0 +1,57 @@
+
+
+/* rgb(220, 255, 253); light cyan
+rgb(82, 255, 238) turquoise blue
+rgb(247, 111, 108) light coral
+rgb(255, 223, 116) jasmine */
+
+.userProfileDiv {
+    background-color: rgb(220, 255, 253);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: repeat(6, 1fr);
+    grid-gap: 30px;
+    grid-template-areas:
+    "topDiv topDiv topDiv topDiv"
+    "leftDiv eattendingDiv groupDiv ."
+    "leftDiv attendingDiv groupDiv ."
+    "leftDiv attendingDiv groupDiv ."
+    ;
+}
+
+.topDiv {
+    grid-area: topDiv;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.topImage {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.leftDiv {
+    grid-area: leftDiv;
+}
+
+.leftImage {
+    width: 68%;
+    height: 600px;
+    object-fit: cover;
+    margin: 3px;
+}
+
+.attendingDiv {
+    grid-area: attendingDiv;
+    display: flex;
+    flex-direction: column;
+}
+
+.groupsDiv {
+    grid-area: groupDiv;
+    display: flex;
+    flex-direction: column;
+}

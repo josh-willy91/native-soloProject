@@ -1,0 +1,133 @@
+
+/* rgb(220, 255, 253); light cyan
+rgb(82, 255, 238) turquoise blue
+rgb(247, 111, 108) light coral
+rgb(255, 223, 116) jasmine */
+
+.formDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 15%;
+    background-color: rgb(220, 255, 253);
+    height: 100%;
+}
+
+/* .login-wrapper {
+    position: relative;
+} */
+
+.event-form {
+    position: relative;
+    width: 420px;
+    padding: 80px 40px 40px;
+    background-color: rgb(255, 223, 116);
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.event-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .25);
+    transform: skewX(-35deg);
+    transform-origin: bottom left;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+
+.event-form .input-group {
+    position: relative;
+}
+
+/* for some browsers it will pop up recent typed usernames ect but the color
+does not follow the website theme so the below overrides them  */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: rgb(247, 111, 108) !important;
+}
+
+.event-form .input-group input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    background-color: transparent;
+    color: inherit;
+}
+
+.event-form .input-group label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: .3s ease-out;
+}
+
+.event-form .input-group input:focus + label,
+.event-form .input-group input:valid + label {
+    transform: translateY(-18px);
+    color: rgb(247, 111, 108);
+    font-size: .8rem;
+}
+
+.event-form h2 {
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+
+.login-btn {
+    display: block;
+    margin-left: auto;
+    border: none;
+    outline: none;
+    background-color: rgb(247, 111, 108);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.ul-errors {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    margin-top: 0;
+    margin-left: 0;
+    padding: 10px;
+    letter-spacing: 1px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    background-color: transparent;
+}
