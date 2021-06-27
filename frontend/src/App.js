@@ -8,7 +8,7 @@ import Navigation from "./components/Navigation";
 import Events from "./components/Events";
 import EventDetails from "./components/EventDetails";
 import UserProfile from "./components/UserProfile";
-import CreateEvent from "./components/CreateEvent";
+import CreateForm from "./components/CreateEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function App() {
             <UserProfile/>
           </Route>
           <Route>
-            <CreateEvent path="/eventForm/create" exact></CreateEvent>
+            <CreateForm path="/createForm/event" exact></CreateForm>
           </Route>
         </Switch>
       )}

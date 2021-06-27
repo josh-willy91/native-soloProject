@@ -6,6 +6,7 @@ const GET_USER_EVENTS = 'events/GET_USER_EVENTS';
 const GET_ONE_EVENT = 'events/GET_ONE_EVENT';
 const ADD_ATTENDEE = 'event/UPDATE_ATTENDEE';
 const REMOVE_ATTENDEE = 'event/REMOVE_ATTENDEE';
+const CREATE_EVENT = 'create/CREATE_EVENT';
 const DELETE_EVENT = 'event/DELETE_EVENT';
 
 //// define action creators
@@ -33,6 +34,11 @@ const addAnAttendee = (dataObj) => ({
 const removeAnAntendee = (dataObj) => ({
     type: REMOVE_ATTENDEE,
     payload: dataObj,
+});
+// create an event
+const createAnEvent = (payload) => ({
+    type: CREATE_EVENT,
+    payload: payload,
 });
 // delete an event
 const deleteEventById = (eventId) => ({
@@ -94,6 +100,21 @@ export const removeAttendee = (id, user) => async(dispatch) => {
         dispatch(removeAnAntendee(updated));
     };
 };
+// Thunk to create an event
+export const createEvent = (payload) => async(dispatch) => {
+    console.log('=====================', payload)
+    const res = await csrfFetch('/api/createForm/event', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify('this is a test ====================================='),
+    });
+    // console.log(res, '==================================')
+
+    if(res.ok) {
+        const createEvent = await res.json();
+        dispatch(createAnEvent(createEvent));
+    };
+};
 // Thunk to delete an event
 export const deleteEvent = (eventId) => async(dispatch) => {
     const res = await csrfFetch(`/api/event/${eventId}`, {
@@ -123,6 +144,8 @@ export default function eventsReducer(state = initialState, action) {
             return {...state, addAttendees: [action.payload]}
         case REMOVE_ATTENDEE:
             return {...state, removeAnAntendee: [action.payload]}
+        case CREATE_EVENT:
+            return {...state, createAnEvent: [action.payload]}
         case DELETE_EVENT:
             const oldState = {...state};
             delete oldState.allEvents[action.payload];
