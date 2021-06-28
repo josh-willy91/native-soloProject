@@ -8,18 +8,39 @@ rgb(255, 223, 116) jasmine */
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding-top: 15%;
+    padding-top: 5%;
     background-color: rgb(220, 255, 253);
-    height: 100%;
+
 }
 
-/* .login-wrapper {
-    position: relative;
-} */
+.newEvent {
+    grid-area: newEvent;
+}
+
+.newVenue {
+    grid-area: newVenue;
+}
+
+.newGroup {
+    grid-area: newGroup;
+}
 
 .event-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1f);
+    grid-auto-rows: repeat(7, 1fr);
+    grid-template-areas:
+    "newEvent newVenue newGroup"
+    "newEvent newVenue newGroup"
+    "newEvent newVenue newGroup"
+    "newEvent newVenue newGroup"
+    "newEvent newVenue newGroup"
+    "newEvent newVenue newGroup"
+    "newEvent newVenue newGroup"
+    "newEvent newVenue subBut"
+    ;
     position: relative;
-    width: 420px;
+    width: 820px;
     padding: 80px 40px 40px;
     background-color: rgb(255, 223, 116);
     border-radius: 10px;
@@ -93,8 +114,9 @@ input:-webkit-autofill:active {
 } */
 
 .submit-btn {
-    display: block;
+    grid-area: subBut;
     margin-left: auto;
+
     border: none;
     outline: none;
     background-color: rgb(247, 111, 108);

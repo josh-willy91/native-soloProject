@@ -51,7 +51,7 @@ const UserProfile = () => {
                 ))}
             </div>
             <div className="groupsDiv">
-                <h2>Your Groups</h2>
+                <h2>Groups Following</h2>
                 {userProfile[0].Groups.map((group) => (
                     <li key={`${group.id}`}>
                         {group.type}

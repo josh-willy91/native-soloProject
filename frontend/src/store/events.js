@@ -106,7 +106,7 @@ export const createEvent = (payload) => async(dispatch) => {
     const res = await csrfFetch('/api/createForm/event', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify('this is a test ====================================='),
+        body: JSON.stringify(payload),
     });
     // console.log(res, '==================================')
 

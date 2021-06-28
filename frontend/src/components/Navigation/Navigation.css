@@ -1,5 +1,8 @@
 
-
+/* rgb(220, 255, 253); light cyan
+rgb(82, 255, 238) turquoise blue
+rgb(247, 111, 108) light coral
+rgb(255, 223, 116) jasmine */
 
 .navbar {
     background-color: rgb(0, 0, 0);
@@ -27,4 +30,12 @@
     border-radius: 3px;
     padding: 3px;
     cursor: pointer;
+}
+
+.navLink {
+    color: rgb(82, 255, 238);
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
 }

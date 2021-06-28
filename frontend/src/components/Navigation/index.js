@@ -31,11 +31,11 @@ function Navigation({ isLoaded }){
   return (
     <ul className="navbar">
       <li className="navList">
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/" className="navLink">Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
       <li hidden={loggedInUser ? false: true}>
-        <NavLink to={`/userProfile/${loggedInUser}`}>Profile</NavLink>
+        <NavLink to={`/userProfile/${loggedInUser}`} className="navLink">Profile</NavLink>
       </li>
     </ul>
   );
